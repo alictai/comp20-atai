@@ -7,6 +7,9 @@
 <script>
 	function status_update() 
 	{
+		var update = document.getElementById("msg").value;
+		var status = document.getElementById("status");
+
 		var d = new Date();
 		var month = d.getMonth() + 1;
 		var day = d.getDate();
@@ -14,13 +17,11 @@
 		var hour = d.getHours();
 		var minute = d.getMinutes();
 
-		var update = document.getElementById("msg").value;
 		var to_print = month + "/" + day + "/" + year + " " + hour + ":" + minute + " - " + update;	
-
+		var newItem = document.createElement("P");
 		var text = document.createTextNode(to_print);
-		
-		//Need to figure out how to add nodes
-		//document.write(month,"/",day,"/",year," ",hour,":",minute," - ",update);
+		newItem.appendChild(text);		
+		status.insertBefore(newItem,status.childNodes[0]);
 	}
 </script>
 </head>
