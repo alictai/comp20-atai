@@ -1,8 +1,10 @@
-#game_div{
+#game_div
+{
     text-align: center;
 }
 
-canvas {
+canvas
+{
     background-color: #cb630a;
     padding: 5px;
     margin: 10px;
@@ -11,6 +13,7 @@ canvas {
     border-style: solid;
 }
 
-body {
+body
+{
     background-color: #128138;
 }
