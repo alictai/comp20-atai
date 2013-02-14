@@ -12,17 +12,21 @@ canvas_w = 399;
 
 function start_game()
 {	
-	console.log("game starting");
 	draw_graphics();
 }
 
 function draw_graphics()
 {
-	console.log("drawing graphics");
 	canvas = document.getElementById('game');
 	if (canvas.getContext) {
 		context = canvas.getContext('2d');
+		
 		draw_background(context);
+		draw_setting(context);
+		draw_footer(context);
+		//draw_frog(context, x, y);
+		//draw_vehicle(context, x, y);
+		//draw_logs(context, x, y);
 
 	}
 	else {
@@ -43,4 +47,15 @@ function draw_background(context)
 	context.rect(0, canvas_h/2, canvas_w, canvas_h/2);
 	context.fillStyle = '#000000';
 	context.fill();
+}
+
+function draw_setting(context)
+{
+	//draw header "Frogger" and purple roadsides
+}
+
+function draw_footer(context)
+{
+	//draw footer containing lives remaining represented by number of frogs, the 
+	//level number, the score and the high score
 }
