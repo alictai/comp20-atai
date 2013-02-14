@@ -22,21 +22,25 @@ function draw_graphics()
 	canvas = document.getElementById('game');
 	if (canvas.getContext) {
 		context = canvas.getContext('2d');
-		
-		//Draw water
-		context.beginPath();
-      	context.rect(0, 0, canvas_w, canvas_h/2);
-    	context.fillStyle = '#191970';
-    	context.fill();
-    	
-    	//Draw road
-    	context.beginPath();
-		context.rect(0, canvas_h/2, canvas_w, canvas_h/2);
-		context.fillStyle = '#000000';
-		context.fill();
+		draw_background(context);
 
 	}
 	else {
 		alert('Sorry, canvas is not supported on your browser!');
 	}
+}
+
+function draw_background(context)
+{
+	//Draw water
+	context.beginPath();
+ 	context.rect(0, 0, canvas_w, canvas_h/2);
+   	context.fillStyle = '#191970';
+   	context.fill();
+   	
+   	//Draw road
+   	context.beginPath();
+	context.rect(0, canvas_h/2, canvas_w, canvas_h/2);
+	context.fillStyle = '#000000';
+	context.fill();
 }
