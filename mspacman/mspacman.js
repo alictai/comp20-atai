@@ -5,9 +5,9 @@ function draw()
     // Check if canvas is supported on browser
     if (canvas.getContext) {
         context = canvas.getContext('2d');
+        //drawing the board
         blueboard = new Image();
     	blueboard.src = 'pacman10-hp-sprite.png';
-    	//drawing the board
     	src_x = 322;
     	src_y = 0;
     	src_w = 464;
