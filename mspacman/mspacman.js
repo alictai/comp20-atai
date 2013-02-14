@@ -1,7 +1,6 @@
 function draw()
 {
-	console.log("YAY I'M DOING STUFF");
-	canvas = document.getElementById('gameboard');
+    canvas = document.getElementById('gameboard');
     // Check if canvas is supported on browser
     if (canvas.getContext) {
         context = canvas.getContext('2d');
