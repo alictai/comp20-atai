@@ -17,11 +17,13 @@ I have done so through the following methods:
 	draw_frogger(context, sprites, x, y) - draws controllable frogger character
 	draw_vehicle(context, sprites, x, y) - draws vehicles
 	draw_log(context, sprites, x, y) - draws log
+No JavaScript errors exist in the console.
 
 ------------------------------
 Acknowledgements
 ------------------------------
 HTML5 Canvas Rectangle Info - http://www.html5canvastutorials.com/tutorials/html5-canvas-rectangles/
+Drawing Text - https://developer.mozilla.org/en-US/docs/Drawing_text_using_a_canvas
 
 ------------------------------
 Hours Spent: 3 hrs
