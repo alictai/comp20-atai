@@ -32,8 +32,8 @@ function draw_graphics()
 		draw_setting(context, sprites);
 		draw_footer(context, sprites);
 		draw_frogger(context, sprites, FROG_START_X, FROG_START_Y);
-		//draw_vehicle(context, x, y);
-		//draw_logs(context, x, y);
+		draw_vehicle(context, sprites, 100, 350);
+		draw_log(context, sprites, 100, 120);
 
 	}
 	else {
@@ -90,5 +90,15 @@ function draw_footer(context, sprites)
 
 function draw_frogger(context, sprites, x, y)
 {
-		context.drawImage(sprites, 12, 369, 23, 17, x, y, 23, 17);
+	context.drawImage(sprites, 12, 369, 23, 17, x, y, 23, 17);
+}
+
+function draw_vehicle(context, sprites, x, y)
+{
+		context.drawImage(sprites, 46, 265, 28, 24, x, y, 28, 24);
+}
+
+function draw_log(context, sprites, x, y)
+{
+		context.drawImage(sprites, 7, 230, 85, 21, x, y, 85, 21);
 }
