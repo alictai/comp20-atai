@@ -4,15 +4,15 @@ CANV_W = 399;
 FROG_START_X = 200;
 FROG_START_Y = 480;
 
-//initialized global variables
-num_lives = 3;
-game_over = false;
-num_lvl = 1;
-time = 120;
-car_speed = 5; 
-log_speed = 5;
-score = 0;
-highscore = 0;
+//global variables
+num_lives;
+game_over;
+num_lvl;
+time;
+car_speed; 
+log_speed;
+score;
+highscore;
 
 function start_game()
 {	
@@ -25,12 +25,16 @@ function draw_graphics()
 	if (canvas.getContext) {
 		context = canvas.getContext('2d');
 		
+		game_init();
+		
 		sprites = new Image();
 		sprites.src = 'assets/frogger_sprites.png';
 		
-		draw_background(context);
+		//draw background images not directly involved in game play
 		draw_setting(context, sprites);
 		draw_footer(context, sprites);
+		
+		//draw functions for sprites that move or change
 		draw_frogger(context, sprites, FROG_START_X, FROG_START_Y);
 		draw_vehicle(context, sprites, 100, 350);
 		draw_log(context, sprites, 100, 120);
@@ -41,7 +45,19 @@ function draw_graphics()
 	}
 }
 
-function draw_background(context)
+function game_init()
+{
+	num_lives = 3;
+	game_over = false;
+	num_lvl = 1;
+	time = 120;
+	car_speed = 5; 
+	log_speed = 5;
+	score = 0;
+	highscore = 0;
+}
+
+function draw_setting(context, sprites)
 {
 	//draw water
 	context.beginPath();
@@ -54,10 +70,7 @@ function draw_background(context)
 	context.rect(0, CANV_H/2, CANV_W, CANV_H/2);
 	context.fillStyle = '#000000';
 	context.fill();
-}
-
-function draw_setting(context, sprites)
-{
+	
 	//draw header "Frogger"
 	context.drawImage(sprites, 15, 13, 318, 31, 15, 13, 318, 31);
 	context.drawImage(sprites, 0, 55, 399, 53, 0, 55, 399, 53);

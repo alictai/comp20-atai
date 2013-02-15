@@ -15,6 +15,5 @@ Acknowledgements
 HTML5 Canvas Rectangle Info - http://www.html5canvastutorials.com/tutorials/html5-canvas-rectangles/
 
 ------------------------------
-Hours Spent: 
+Hours Spent: 3 hrs
 ------------------------------
-2/15 - 2:50am- 
