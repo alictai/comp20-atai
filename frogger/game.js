@@ -5,17 +5,18 @@ FROG_START_X = 200;
 FROG_START_Y = 480;
 
 //global variables
-num_lives;
-game_over;
-num_lvl;
-time;
-car_speed; 
-log_speed;
-score;
-highscore;
+var num_lives;
+var game_over;
+var num_lvl;
+var time;
+var car_speed; 
+var log_speed;
+var score;
+var highscore;
 
 function start_game()
 {	
+	game_init();
 	draw_graphics();
 }
 
@@ -25,7 +26,6 @@ function draw_graphics()
 	if (canvas.getContext) {
 		context = canvas.getContext('2d');
 		
-		game_init();
 		
 		sprites = new Image();
 		sprites.src = 'assets/frogger_sprites.png';
