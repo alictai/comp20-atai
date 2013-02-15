@@ -2,7 +2,7 @@
 CANV_H = 565;
 CANV_W = 399;
 FROG_START_X = 0;
-FROG_START_Y = 490;
+FROG_START_Y = 480;
 
 //initialized global variables
 num_lives = 3;
@@ -30,7 +30,7 @@ function draw_graphics()
 		
 		draw_background(context);
 		draw_setting(context, sprites);
-		//draw_footer(context, sprites);
+		draw_footer(context, sprites);
 		//draw_frog(context, x, y);
 		//draw_vehicle(context, x, y);
 		//draw_logs(context, x, y);
@@ -69,7 +69,19 @@ function draw_setting(context, sprites)
 
 function draw_footer(context, sprites)
 {
-	//draw footer containing lives remaining represented by number of frogs, the 
-	//level number, the score and the high score
+	//draw lives
+	context.drawImage(sprites, 13, 334, 17, 23, 0, 514, 17, 23);
+	context.drawImage(sprites, 13, 334, 17, 23, 20, 514, 17, 23);
+	
+	//draw level
+	context.fillStyle = "green";
+	context.font = "20pt Helvetica";
+	context.fillText("Level", 45, 535);
+	context.fillText(num_lvl, 120, 535);
+
+	//draw score
+	
+	
+	//draw high score
 	
 }
