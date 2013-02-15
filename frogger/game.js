@@ -1,7 +1,7 @@
 //constants
 CANV_H = 565;
 CANV_W = 399;
-FROG_START_X = 0;
+FROG_START_X = 200;
 FROG_START_Y = 480;
 
 //initialized global variables
@@ -31,7 +31,7 @@ function draw_graphics()
 		draw_background(context);
 		draw_setting(context, sprites);
 		draw_footer(context, sprites);
-		//draw_frog(context, x, y);
+		draw_frogger(context, sprites, FROG_START_X, FROG_START_Y);
 		//draw_vehicle(context, x, y);
 		//draw_logs(context, x, y);
 
@@ -79,9 +79,16 @@ function draw_footer(context, sprites)
 	context.fillText("Level", 45, 535);
 	context.fillText(num_lvl, 120, 535);
 
-	//draw score
+	//draw score and high score
+	context.font = "12pt Helvetica";
+	context.fillText("Score: ", 1, 560);
+	context.fillText(score, 50, 560);
+	context.fillText("High Score: ", 100, 560);
+	context.fillText(highscore, 190, 560);
 	
-	
-	//draw high score
-	
+}
+
+function draw_frogger(context, sprites, x, y)
+{
+		context.drawImage(sprites, 12, 369, 23, 17, x, y, 23, 17);
 }
