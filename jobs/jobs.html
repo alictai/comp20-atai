@@ -8,8 +8,28 @@
 	var request;
 
 	function init() {
-		
-		request = new XMLHttpRequest();
+		//Check if browser is IE or non-IE
+		try {
+			request = new XMLHttpRequest();
+		}
+		catch (ms1) {
+			try {
+ 	   			request = new ActiveXObject("Msxml2.XMLHTTP");
+  			}
+  			catch (ms2) {
+    			try {
+      				request = new ActiveXObject("Microsoft.XMLHTTP");
+    			}
+    			catch (ex) {
+      				request = null;
+    			}
+  			}
+		}
+		if (request == null) {
+  			alert("Error creating request object --Ajax not supported?");
+		}
+
+		// Set up, execute, and handle the request
 		request.onreadystatechange = parse;
 		request.open("GET", "http://messagehub.herokuapp.com/lab8.json", true);
 		request.send();
