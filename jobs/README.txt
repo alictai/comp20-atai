@@ -7,6 +7,10 @@ February 25, 2013
 ------------------------------
 Implementation
 ------------------------------
+I have successfully modified my lab 7 work to use AJAX, handle exceptions, and parse
+JSON data via API. I have done so through the following files:
+	job.css
+	job.html
 
 
 ------------------------------
@@ -18,5 +22,5 @@ messagehub.herokuapp.com/lab8.json. Origin null is not allowed by Access-Control
 Origin"
 
 ------------------------------
-Hours Spent: 
+Hours Spent: 1
 ------------------------------
