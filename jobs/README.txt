@@ -1,24 +1,22 @@
 ------------------------------
-Lab 7
+Lab 8
 ------------------------------
 Alison Tai
-February 14, 2013
+February 25, 2013
 
 ------------------------------
 Implementation
 ------------------------------
-I have successfully parsed a given string to JSON and rendered the company, 
-location, and position information to a page. I have done so through the 
-following pages:
-	jobs.html
-	jobs.css
-with the parse function in the header of jobs.html.
+
 
 ------------------------------
 Acknowledgements
 ------------------------------
-None
+I worked with Joe Canuel and Ron Hong on how to catch a 404 error we were all getting. We
+also discussed how to deal with the following error: "XMLHttpRequest cannot load http://
+messagehub.herokuapp.com/lab8.json. Origin null is not allowed by Access-Control-Allow-
+Origin"
 
 ------------------------------
-Hours Spent: 2
+Hours Spent: 
 ------------------------------
