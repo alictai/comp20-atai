@@ -85,10 +85,9 @@ function getRealTime() {
     			}
     	                catch (ex) {
       			        request = null;
-    		        }
-  		}
-	}
-
+    		        	}
+  				}
+		}
         //Set up, execute, and handle the request
         request.open("GET", "http://mbtamap-cedar.herokuapp.com/mapper/redline.json", true);
         request.send();
@@ -104,12 +103,12 @@ function generateRedLine()
 
         // Red line station information
         pt = new google.maps.LatLng(42.395428, -71.142483);
-	markers.push(new google.maps.Marker({position: pt, title: "Alewife Station", icon: tico}));
-	redStations.push(pt);
+		markers.push(new google.maps.Marker({position: pt, title: "Alewife Station", icon: tico}));
+		redStations.push(pt);
 
-	pt = new google.maps.LatLng(42.39674, -71.121815);
-	markers.push(new google.maps.Marker({position: pt, title: "Davis Station", icon: tico}));
-	redStations.push(pt);
+		pt = new google.maps.LatLng(42.39674, -71.121815);
+		markers.push(new google.maps.Marker({position: pt, title: "Davis Station", icon: tico}));
+		redStations.push(pt);
 
         pt = new google.maps.LatLng(42.3884, -71.119149);
         markers.push(new google.maps.Marker({position: pt, title: "Porter Square Station", icon: tico}));
