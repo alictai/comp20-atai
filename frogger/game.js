@@ -29,16 +29,16 @@ function draw_graphics()
 		
 		sprites = new Image();
 		sprites.src = 'assets/frogger_sprites.png';
+		sprites.onload = function () {
+			//draw background images not directly involved in game play
+			draw_setting(context, sprites);
+			draw_footer(context, sprites);
 		
-		//draw background images not directly involved in game play
-		draw_setting(context, sprites);
-		draw_footer(context, sprites);
-		
-		//draw functions for sprites that move or change
-		draw_frogger(context, sprites, FROG_START_X, FROG_START_Y);
-		draw_vehicle(context, sprites, 100, 350);
-		draw_log(context, sprites, 100, 120);
-
+			//draw functions for sprites that move or change
+			draw_frogger(context, sprites, FROG_START_X, FROG_START_Y);
+			draw_vehicle(context, sprites, 100, 350);
+			draw_log(context, sprites, 100, 120);
+		};
 	}
 	else {
 		alert('Sorry, canvas is not supported on your browser!');
