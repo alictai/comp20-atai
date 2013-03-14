@@ -20,9 +20,8 @@ w3.org.
 ------------------------------
 Acknowledgements
 ------------------------------
-I used www.w3schools.com to look up how to manipulate the DOM tree and add
-nodes.
+Local Storage key function - http://stackoverflow.com/questions/8419354/get-html5-localstorage-keys
 
 ------------------------------
-Hours Spent: 1 hour
+Hours Spent: 2 hours
 ------------------------------
