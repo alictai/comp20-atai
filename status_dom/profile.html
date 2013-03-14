@@ -6,7 +6,6 @@
 <title>Fecesbook</title>
 <script>
 	function init() {
-		console.log("initializing");
 		if(typeof(Storage) != "undefined") {
 			store();
 		} else {
@@ -17,7 +16,8 @@
 	function reload() {
 		elem = document.getElementById("status");
 		output = "";
-		for (key in localStorage) {
+		for (var i = localStorage.length - 1; i > 0; i--) {
+			key = localStorage.key(i);
 			output += "<p>" + localStorage[key] + "</p>";
 		}
 		elem.innerHTML = output;
@@ -27,7 +27,6 @@
 		set_date();
 		txt = date + " - ";
 		txt += document.getElementById("msg").value;
-		console.log(txt);
 		localStorage[new Date().getTime()] = txt;
 		reload();
 	}

@@ -12,6 +12,8 @@ updates in a file called profile.html.
 	Messages are displayed in the "Updates" section.
 	The latest update message is displayed first.
 	The message is formatted to specifications.
+	Messages are stored in local storage
+	Messages are redisplayed (from local storage) on return to the page
 All pages pass the official HTML5 specification and CSS validation found on
 w3.org. 
 
