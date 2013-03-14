@@ -8,8 +8,6 @@
 	function init() {
 		console.log("initializing");
 		if(typeof(Storage) != "undefined") {
-			reload();
-			status_update();
 			store();
 		} else {
 			status_update();
@@ -17,29 +15,43 @@
 	}
 	
 	function reload() {
-	
+		elem = document.getElementById("status");
+		output = "";
+		for (key in localStorage) {
+			output += "<p>" + localStorage[key] + "</p>";
+		}
+		elem.innerHTML = output;
 	}
 	
 	function store() {
-		
+		set_date();
+		txt = date + " - ";
+		txt += document.getElementById("msg").value;
+		console.log(txt);
+		localStorage[new Date().getTime()] = txt;
+		reload();
 	}
 	
 	function status_update() {
 		var update = document.getElementById("msg").value;
 		var status = document.getElementById("status");
 
+		set_date();
+		to_print = date + " - " + update;	
+		var newItem = document.createElement("P");
+		var text = document.createTextNode(to_print);
+		newItem.appendChild(text);		
+		status.insertBefore(newItem,status.childNodes[0]);
+	}
+	
+	function set_date() {
 		var d = new Date();
 		var month = d.getMonth() + 1;
 		var day = d.getDate();
 		var year = d.getFullYear();
 		var hour = d.getHours();
 		var minute = d.getMinutes();
-
-		to_print = month + "/" + day + "/" + year + " " + hour + ":" + minute + " - " + update;	
-		var newItem = document.createElement("P");
-		var text = document.createTextNode(to_print);
-		newItem.appendChild(text);		
-		status.insertBefore(newItem,status.childNodes[0]);
+		date = month + "/" + day + "/" + year + " " + hour + ":" + minute;
 	}
 </script>
 </head>
