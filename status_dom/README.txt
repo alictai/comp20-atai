@@ -1,8 +1,8 @@
 ------------------------------
-Lab 5
+Lab 9
 ------------------------------
 Alison Tai
-February 7, 2013
+March 12, 2013
 
 ------------------------------
 Implementation
@@ -22,5 +22,5 @@ I used www.w3schools.com to look up how to manipulate the DOM tree and add
 nodes.
 
 ------------------------------
-Hours Spent: 4 hours
+Hours Spent: 1 hour
 ------------------------------

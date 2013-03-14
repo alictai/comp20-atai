@@ -5,8 +5,26 @@
 <head>
 <title>Fecesbook</title>
 <script>
-	function status_update() 
-	{
+	function init() {
+		console.log("initializing");
+		if(typeof(Storage) != "undefined") {
+			reload();
+			status_update();
+			store();
+		} else {
+			status_update();
+		}
+	}
+	
+	function reload() {
+	
+	}
+	
+	function store() {
+		
+	}
+	
+	function status_update() {
 		var update = document.getElementById("msg").value;
 		var status = document.getElementById("status");
 
@@ -17,7 +35,7 @@
 		var hour = d.getHours();
 		var minute = d.getMinutes();
 
-		var to_print = month + "/" + day + "/" + year + " " + hour + ":" + minute + " - " + update;	
+		to_print = month + "/" + day + "/" + year + " " + hour + ":" + minute + " - " + update;	
 		var newItem = document.createElement("P");
 		var text = document.createTextNode(to_print);
 		newItem.appendChild(text);		
@@ -40,7 +58,7 @@
 	</div>
 	<h2 id="fullname">Barney Gumble</h2>
 	<p><img src="https://s3.amazonaws.com/tufts-cs-mchow-images/barneymug.gif" alt="profile" /></p>
-	<h3>What are you thinking about? <input type="text" onchange="status_update()" id="msg" name="msg" size="30" /></h3>
+	<h3>What are you thinking about? <input type="text" onchange="init()" id="msg" name="msg" size="30" /></h3>
 	<h3>Updates</h3>
 	<div id="status">
 	</div>

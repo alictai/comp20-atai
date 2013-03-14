@@ -1,27 +1,33 @@
-//constants
+//establishing constants
 CANV_H = 565;
 CANV_W = 399;
 FROG_START_X = 200;
 FROG_START_Y = 480;
+UP_ARROW = 38;
+DOWN_ARROW = 40;
+LEFT_ARROW = 37;
+RIGHT_ARROW = 39;
 
-//global variables
-var num_lives;
-var game_over;
-var num_lvl;
-var time;
-var car_speed; 
-var log_speed;
-var score;
-var highscore;
-
-function start_game()
-{	
-	game_init();
-	draw_graphics();
+function game_init() {
+	//initializing global variables
+	num_lives = 3;
+	game_over = false;
+	num_lvl = 1;
+	time = 120;
+	car_speed = 5; 
+	log_speed = 5;
+	score = 0;
+	highscore = 0;
 }
 
-function draw_graphics()
-{
+
+function start_game() {	
+	game_init();
+	draw_graphics();
+	game_start();
+}
+
+function draw_graphics() {
 	canvas = document.getElementById('game');
 	if (canvas.getContext) {
 		context = canvas.getContext('2d');
@@ -45,20 +51,7 @@ function draw_graphics()
 	}
 }
 
-function game_init()
-{
-	num_lives = 3;
-	game_over = false;
-	num_lvl = 1;
-	time = 120;
-	car_speed = 5; 
-	log_speed = 5;
-	score = 0;
-	highscore = 0;
-}
-
-function draw_setting(context, sprites)
-{
+function draw_setting(context, sprites) {
 	//draw water
 	context.beginPath();
  	context.rect(0, 0, CANV_W, CANV_H/2);
@@ -80,8 +73,7 @@ function draw_setting(context, sprites)
 	context.drawImage(sprites, 0, 119, 399, 34, 0, FROG_START_Y, 399, 34);
 }
 
-function draw_footer(context, sprites)
-{
+function draw_footer(context, sprites) {
 	//draw lives
 	context.drawImage(sprites, 13, 334, 17, 23, 0, 514, 17, 23);
 	context.drawImage(sprites, 13, 334, 17, 23, 20, 514, 17, 23);
@@ -101,17 +93,54 @@ function draw_footer(context, sprites)
 	
 }
 
-function draw_frogger(context, sprites, x, y)
-{
+function draw_frogger(context, sprites, x, y) {
 	context.drawImage(sprites, 12, 369, 23, 17, x, y, 23, 17);
+	frog_x = x;
+	frog_y = y;
 }
 
-function draw_vehicle(context, sprites, x, y)
-{
+function draw_vehicle(context, sprites, x, y) {
 		context.drawImage(sprites, 46, 265, 28, 24, x, y, 28, 24);
 }
 
-function draw_log(context, sprites, x, y)
-{
+function draw_log(context, sprites, x, y) {
 		context.drawImage(sprites, 7, 230, 85, 21, x, y, 85, 21);
+}
+
+function game_start() {
+	keypress();
+
+	while (!game_over) {
+		console.log("in while loop");
+		update();
+		draw();
+		game_over = true;
+	}
+	console.log("outside of while loop");
+}
+
+function keypress() {
+	document.addEventListener("keydown", function(event) {
+		console.log(event.keyCode);
+		if (event.keyCode == UP_ARROW) {
+			console.log("pressed up key");
+		}
+		else if (event.keyCode == DOWN_ARROW) {
+			console.log("pressed down key");
+		}
+		else if (event.keyCode == LEFT_ARROW) {
+			console.log("pressed left key");
+		}
+		else if (event.keyCode == RIGHT_ARROW) {
+			console.log("pressed right key");
+		}
+	});
+}
+
+function update() {
+	//move sprites, update coordinates, resolve collisions
+}
+
+function draw() {
+	//redraw everything on canvas
 }
