@@ -76,6 +76,17 @@ function game_loop() {
 	draw_turtles();
 	draw_vehicles();
 	draw_home();
+	
+	check_collisions();
+}
+
+function lose_life() {
+	dead_frog = new Image();
+	dead_frog.src = 'assets/dead_frog.png';
+	context.drawImage(dead_frog, 5, 3, 18, 24, frog_x, frog_y, 18, 24);
+	frog_x = FROG_START_X;
+	frog_y = FROG_START_Y;
+	num_lives--;
 }
 
 /* Check Game State */
@@ -110,7 +121,121 @@ function check_input(event){
 
 /* Collisions */
 function check_collisions() {
+	if (frog_y > WATER_START) {
+		if (car_collision() == true) {
+			lose_life();
+		}
+	} else if ((frog_y < WATER_START) && (frog_y > LAND_START)) {
+		if (log_collision() != -1) {
+			frog_x += log_collision();
+		} else if (turtle_collision() != -1) {
+			frog_x += turtle_collision();
+		} else {
+			lose_life();
+		}
+	} else if (frog_y < LAND_START) {
+		if (home_collision() != -1) {
+			frog_x = FROG_START_X;
+			frog_y = FROG_START_Y;
+			if (num_frogs_home() == 5) {
+				score += 1000;
+				level_up();
+			} else {
+				score += 50;
+			}			
+		} else {
+			lose_life();
+		}
+	}
+}
 
+function check_collision(x, y, w, h) {
+	var minX_f = frog_x;
+	var minY_f = frog_y;
+	var maxX_f = frog_x + FROG_W;
+	var maxY_f = frog_y + FROG_H;
+
+	var minX = x;
+	var minY = y;
+	var maxX = x + w;
+	var maxY = y + h;
+	
+	if ((maxY_f <= maxY) && (maxY_f >= minY)) {
+		if ((minX_f <= maxX) && (minX_f >= minX)) {
+			return true;
+		}
+		if ((maxX_f <= maxX) && (maxX_f >= minX)) {
+			return true;
+		}
+	}
+	return false;
+}
+
+function home_collision() {
+	if (check_collision(11, LAND_Y, 32, 53) && frogs_home[0] == false) {
+		frogs_home[0] = true;
+		return 0;
+	} else if (check_collision(96, LAND_Y, 32, 53) && frogs_home[1] == false) {
+		frogs_home[1] = true;
+		return 1;
+	} else if (check_collision(181, LAND_Y, 32, 53) && frogs_home[2] == false) {
+		frogs_home[2] = true;
+		return 2;
+	} else if (check_collision(265, LAND_Y, 32, 53) && frogs_home[3] == false) {
+		frogs_home[3] = true;
+		return 3;
+	} else if (check_collision(351, LAND_Y, 32, 53) && frogs_home[4] == false) {
+		frogs_home[4] = true;
+		return 4;
+	} else {
+		return -1;
+	}
+}
+
+function car_collision() {
+	if (check_collision(car_1a, CAR1_Y, 46, 18) || 
+	    check_collision(car_1b, CAR1_Y, 46, 18) ||
+	    check_collision(car_2a, CAR2_Y, 27, 24) ||
+	    check_collision(car_2b, CAR2_Y, 27, 24) ||
+	    check_collision(car_3a, CAR3_Y, 28, 20) ||
+	    check_collision(car_3b, CAR3_Y, 28, 20) ||
+	    check_collision(car_3c, CAR3_Y, 28, 20) ||
+	    check_collision(car_4a, CAR4_Y, 24, 21) ||
+	    check_collision(car_4b, CAR4_Y, 24, 21) ||
+	    check_collision(car_5a, CAR5_Y, 24, 26) ||
+	    check_collision(car_5b, CAR5_Y, 24, 26) ) {
+		return true;
+	} else {		
+		return false;
+	}
+}
+
+function log_collision () {
+	if (check_collision(log_1a, LOG1_Y, 118, 22) ||
+		check_collision(log_1b, LOG1_Y, 118, 22) ) {
+		return log_speed1;
+	} else if (check_collision(log_2, LOG2_Y, 179, 22)) {
+		return log_speed2;	
+		
+	} else if (check_collision(log_3a, LOG3_Y, 85, 21) ||
+			   check_collision(log_3b, LOG3_Y, 85, 21) ||
+			   check_collision(log_3c, LOG3_Y, 85, 21) ) {
+		return -log_speed1;
+	} else {
+		return -1;
+	}
+}
+
+function turtle_collision() {
+	if (check_collision(turtles_1a, TURTLES1_Y, 121, 22) ||
+		check_collision(turtles_1b, TURTLES1_Y, 121, 22) ) {
+		return turtle_speed1;
+	} else if (check_collision(turtles_2a, TURTLES2_Y, 121, 22) ||
+			   check_collision(turtles_2b, TURTLES2_Y, 121, 22) ) {
+		return turtle_speed2;
+	} else {
+		return -1;
+	}
 }
 
 /* Drawing */

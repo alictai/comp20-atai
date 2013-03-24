@@ -89,7 +89,7 @@ function getRealTime() {
   				}
 		}
         //Set up, execute, and handle the request
-        request.open("GET", "http://mbtamap-cedar.herokuapp.com/mapper/redline.json", true);
+        request.open("GET", "http://mbtamap.herokuapp.com/mapper/redline.json", true);
         request.send();
 }
 
