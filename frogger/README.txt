@@ -14,17 +14,17 @@ features:
 	2.  Frogger can be moved on the canvas using the UP, DOWN, LEFT, and RIGHT
 	    arrow keys on keyboard.
 	3.  Animated vehicles, logs, and turtles.
-TODO4.  Collision detection
-TODO5.  Basic game scoring where successfully jumping Frogger forward is 10 
+	4.  Collision detection
+	5.  Basic game scoring where successfully jumping Frogger forward is 10 
 		points, successfully jumping Frogger home is 50 points, and 
 		successfully jumping 5 frogs home is 1000 points.
-TODO6.  Level progression where, after jumping 5 frogs home, the level and 
+	6.  Level progression where, after jumping 5 frogs home, the level and 
 		speed of vehicles, logs, and turtles is increased to make the level 
 		more difficult.
-TODO7.  Frogger animates to dead_frog.png when dead.
+	7.  Frogger animates to dead_frog.png when dead.
 TODO8.  Game audio OR timer???
-TODO9.  The letter P pauses and un-pauses the game.
-TODO10. The letter S restarts the game.
+	9.  The letter P pauses and un-pauses the game.
+	10. The letter S restarts the game.
 
 I have done so through the following methods:
 	GAME PLAY METHODS
@@ -49,23 +49,28 @@ I have done so through the following methods:
 		num_frogs_home - counts the number of frogs contained in home spaces
 
 	COLLISION METHODS
-		check_collisions - 
-		check_collision - 
-		home_collision - 
-		car_collision - 
-		log_collision - 
-		turtle_collision - 
+		check_collisions - calls functions on frogger and certain sprites
+			given the location of frogger on the canvas in order to determine
+			collisions. This function calls on the lose_life function 
+			accordingly.
+		check_collision - checks collision of frogger with a particular sprite
+		home_collision - checks collision of frogger with the home land
+		car_collision - checks collision of frogger with vehicles
+		log_collision - checks collision of frogger with logs
+		turtle_collision - checks collision of frogger with turtles
 
 	DRAWING METHODS
 		start_graphics - draws initial screen	
 		draw_setting - draws background images
 		draw_footer - draws score/game information
 		draw_frogger - draws frogger based on global frog_x and frog_y 
-		draw_sprite - 
-		draw_home - 
-		draw_vehicles - 
-		draw_logs - 
-		draw_turtles - draws turtles
+		draw_sprite - draws a sprite from the sprite sheet given particular
+			coordinates of desired sprite and desired location on canvas
+		draw_home - draws the home location of frogger with the given
+			froggers that have successfully returned
+		draw_vehicles - draws the vehicle sprites
+		draw_logs - draws the log sprites
+		draw_turtles - draws turtle sprites
 		draw_turtle_group - draws a single grouping of turtles
 	
 No JavaScript errors exist in the console.
@@ -77,5 +82,5 @@ HTML5 Canvas Rectangle Info - http://www.html5canvastutorials.com/tutorials/html
 Drawing Text - https://developer.mozilla.org/en-US/docs/Drawing_text_using_a_canvas
 
 ------------------------------
-Hours Spent: 
+Hours Spent: 30
 ------------------------------
