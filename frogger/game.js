@@ -246,19 +246,19 @@ function check_collision(x, y, w, h) {
 }
 
 function home_collision() {
-	if (check_collision(11, LAND_Y, 32, 53) && frogs_home[0] == false) {
+	if (check_collision(30, LAND_Y, 14, 53) && frogs_home[0] == false) {
 		frogs_home[0] = true;
 		return 0;
-	} else if (check_collision(96, LAND_Y, 32, 53) && frogs_home[1] == false) {
+	} else if (check_collision(115, LAND_Y, 16, 53) && frogs_home[1] == false) {
 		frogs_home[1] = true;
 		return 1;
-	} else if (check_collision(181, LAND_Y, 32, 53) && frogs_home[2] == false) {
+	} else if (check_collision(200, LAND_Y, 16, 53) && frogs_home[2] == false) {
 		frogs_home[2] = true;
 		return 2;
-	} else if (check_collision(265, LAND_Y, 32, 53) && frogs_home[3] == false) {
+	} else if (check_collision(284, LAND_Y, 16, 53) && frogs_home[3] == false) {
 		frogs_home[3] = true;
 		return 3;
-	} else if (check_collision(351, LAND_Y, 32, 53) && frogs_home[4] == false) {
+	} else if (check_collision(370, LAND_Y, 14, 53) && frogs_home[4] == false) {
 		frogs_home[4] = true;
 		return 4;
 	} else {
@@ -285,10 +285,10 @@ function car_collision() {
 }
 
 function log_collision () {
-	if (check_collision(log_1a, LOG1_Y, 118, 22) ||
-		check_collision(log_1b, LOG1_Y, 118, 22) ) {
+	if (check_collision(log_1a, LOG1_Y, 120, 22) ||
+		check_collision(log_1b, LOG1_Y, 120, 22) ) {
 		return log_speed1;
-	} else if (check_collision(log_2, LOG2_Y, 179, 22)) {
+	} else if (check_collision(log_2, LOG2_Y, 165, 22)) {
 		return log_speed2;	
 		
 	} else if (check_collision(log_3a, LOG3_Y, 85, 21) ||
