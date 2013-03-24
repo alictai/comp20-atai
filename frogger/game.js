@@ -72,10 +72,10 @@ function game_loop() {
 	draw_setting();
 	draw_footer();
 	draw_frogger();
-	//draw_logs();
-	//draw_turtles();
-	//draw_vehicles();
-	//draw_home();
+	draw_logs();
+	draw_turtles();
+	draw_vehicles();
+	draw_home();
 }
 
 /* Check Game State */
@@ -167,11 +167,80 @@ function draw_frogger() {
 	}
 }
 
-function draw_vehicle(context, sprites, x, y) {
-		context.drawImage(sprites, 46, 265, 28, 24, x, y, 28, 24);
+function draw_sprite(src_x, src_y, w, h, loc_x, loc_y) {
+	context.drawImage(sprites, src_x, src_y, w, h, loc_x, loc_y, w, h);
+	if (loc_x < -w) {
+		loc_x = CANV_W;
+	} else if (loc_x > CANV_W) {
+		loc_x = -w;
+	}
+	return loc_x;
 }
 
-function draw_log(context, sprites, x, y) {
-		context.drawImage(sprites, 7, 230, 85, 21, x, y, 85, 21);
+function draw_home() {
+	for (var i = 0; i < 5; i++) {
+		if (frogs_home[i] == true) {
+			draw_sprite(12, 369, 23, 17, 11+(85*i), LAND_Y + 20);
+		}
+	}
+}
+
+function draw_vehicles() {
+	car_1a = car_1a - car_speed1, car_1b = car_1b - car_speed1;
+	car_2a += car_speed2, car_2b += car_speed2;
+	car_3a = car_3a - car_speed2;
+	car_3b = car_3b - car_speed2;
+	car_3c = car_3c - car_speed2;
+	car_4a += car_speed1, car_4b += car_speed1;
+	car_5a = car_5a - car_speed1, car_5b = car_5b - car_speed1;
+
+	car_1a = draw_sprite(106, 302, 46, 18, car_1a, CAR1_Y);
+	car_1b = draw_sprite(106, 302, 46, 18, car_1b, CAR1_Y);
+	car_2a = draw_sprite(46, 265, 28, 24, car_2a, CAR2_Y);
+	car_2b = draw_sprite(46, 265, 28, 24, car_2b, CAR2_Y);	
+	car_3a = draw_sprite(10, 267, 28, 20, car_3a, CAR3_Y);
+	car_3b = draw_sprite(10, 267, 28, 20, car_3b, CAR3_Y);
+	car_3c = draw_sprite(10, 267, 28, 20, car_3c, CAR3_Y);
+	car_4a = draw_sprite(11, 301, 24, 21, car_4a, CAR4_Y);
+	car_4b = draw_sprite(11, 301, 24, 21, car_4b, CAR4_Y);
+	car_5a = draw_sprite(82, 264, 24, 26, car_5a, CAR5_Y);
+	car_5b = draw_sprite(82, 264, 24, 26, car_5b, CAR5_Y);
+}
+
+function draw_logs() {
+	log_1a += log_speed1, log_1b += log_speed1;
+	log_2 += log_speed2;
+	log_3a = log_3a - log_speed1;
+	log_3b = log_3b - log_speed1;
+	log_3c = log_3c - log_speed1;
+	
+	log_1a = draw_sprite(10, 196, 118, 22, log_1a, LOG1_Y);
+	log_1b = draw_sprite(10, 196, 118, 22, log_1b, LOG1_Y);
+	log_2 = draw_sprite(11, 165, 179, 22, log_2, LOG2_Y);
+	log_3a = draw_sprite(7, 230, 85, 21, log_3a, LOG3_Y);
+	log_3b = draw_sprite(7, 230, 85, 21, log_3b, LOG3_Y);
+	log_3c = draw_sprite(7, 230, 85, 21, log_3c, LOG3_Y);	
+}
+
+function draw_turtles() {
+	turtles_1a = turtles_1a + turtle_speed1;
+	turtles_1b = turtles_1b + turtle_speed1;
+	turtles_2a = turtles_2a + turtle_speed2;
+	turtles_2b = turtles_2b + turtle_speed2;
+	
+	turtles_1a = draw_turtle_group(turtles_1a, TURTLES1_Y);
+	turtles_1b = draw_turtle_group(turtles_1b, TURTLES1_Y);
+	turtles_2a = draw_turtle_group(turtles_2a, TURTLES2_Y);		
+	turtles_2b = draw_turtle_group(turtles_2b, TURTLES2_Y);
+}
+
+function draw_turtle_group(x, y) {
+	context.drawImage(sprites, 15, 406, 31, 22, x, y, 31, 22);
+	context.drawImage(sprites, 15, 406, 31, 22, x + 45, y, 31, 22);
+	context.drawImage(sprites, 15, 406, 31, 22, x + 90, y, 31, 22);
+	if (x < -131) {
+		x = CANV_W;
+	}
+	return x;
 }
 

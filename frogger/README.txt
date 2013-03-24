@@ -13,7 +13,7 @@ features:
 	1.  Game loads immediately on page load.
 	2.  Frogger can be moved on the canvas using the UP, DOWN, LEFT, and RIGHT
 	    arrow keys on keyboard.
-TODO3.  Animated vehicles, logs, and turtles.
+	3.  Animated vehicles, logs, and turtles.
 TODO4.  Collision detection
 TODO5.  Basic game scoring where successfully jumping Frogger forward is 10 
 		points, successfully jumping Frogger home is 50 points, and 
