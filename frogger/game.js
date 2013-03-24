@@ -51,6 +51,7 @@ function game_init() {
 	frog_x = FROG_START_X, frog_y = FROG_START_Y;
 	frog_face = "up";
 	paused = false;
+	game_over = false;
 }
 
 function start_game() {	
@@ -105,40 +106,43 @@ function level_up() {
 
 /* Check Game State */
 function check_input(event){
-	if (event.keyCode == UP_ARROW) {
-		frog_face = "up";
-		if ((frog_y - 30) > 50) {
-			context.drawImage(sprites, 46, 367, 21, 24, frog_x, frog_y, 21, 24);
-			frog_y = frog_y - 30;
-			score += 10;
+	if (!game_over) {
+		if (event.keyCode == UP_ARROW) {
+			frog_face = "up";
+			if ((frog_y - 30) > 50) {
+				context.drawImage(sprites, 46, 367, 21, 24, frog_x, frog_y, 21, 24);
+				frog_y = frog_y - 30;
+				score += 10;
+			}
+		} else if (event.keyCode == DOWN_ARROW) {
+			frog_face = "down";
+			if ((frog_y + 30) < (FROG_START_Y + 30)) {
+				context.drawImage(sprites, 114, 366, 21, 25, frog_x, frog_y - 10, 21, 25);
+				frog_y = frog_y + 30;
+			}
+		} else if (event.keyCode == LEFT_ARROW) {
+			frog_face = "left";
+			if ((frog_x - 21) > 0) {
+				context.drawImage(sprites, 112, 338, 25, 22, frog_x, frog_y, 25, 22);
+				frog_x = frog_x - 21;
+			}
+		} else if (event.keyCode == RIGHT_ARROW) {
+			frog_face = "right";
+			if ((frog_x + 21) < (CANV_W - FROG_W)) {
+				context.drawImage(sprites, 43, 335, 25, 22, frog_x - 10, frog_y, 25, 22);
+				frog_x = frog_x + 21;
+			}
+		} else if (event.keyCode == PAUSE) {
+			if (paused == false) {
+				paused = true;
+				clearInterval(stop_animation);
+			} else {
+				paused = false;
+				stop_animation = setInterval(game_loop, anim_speed);
+			}
 		}
-	} else if (event.keyCode == DOWN_ARROW) {
-		frog_face = "down";
-		if ((frog_y + 30) < (FROG_START_Y + 30)) {
-			context.drawImage(sprites, 114, 366, 21, 25, frog_x, frog_y - 10, 21, 25);
-			frog_y = frog_y + 30;
-		}
-	} else if (event.keyCode == LEFT_ARROW) {
-		frog_face = "left";
-		if ((frog_x - 21) > 0) {
-			context.drawImage(sprites, 112, 338, 25, 22, frog_x, frog_y, 25, 22);
-			frog_x = frog_x - 21;
-		}
-	} else if (event.keyCode == RIGHT_ARROW) {
-		frog_face = "right";
-		if ((frog_x + 21) < (CANV_W - FROG_W)) {
-			context.drawImage(sprites, 43, 335, 25, 22, frog_x - 10, frog_y, 25, 22);
-			frog_x = frog_x + 21;
-		}
-	} else if (event.keyCode == PAUSE) {
-		if (paused == false) {
-			paused = true;
-			clearInterval(stop_animation);
-		} else {
-			paused = false;
-			stop_animation = setInterval(game_loop, anim_speed);
-		}
-	} else if (event.keyCode == RESTART) {
+	}
+	if (event.keyCode == RESTART) {
 		clearInterval(stop_animation);
 		start_game();
 	}
@@ -158,12 +162,12 @@ function check_score() {
 
 function check_lose() {
 	if (num_lives <= 0) {
-		clearInterval(stop_animation);		
+		clearInterval(stop_animation);
+		game_over = true;
 		context.fillStyle = "red";
 		context.font = "20pt Helvetica";
 		context.fillText("GAME OVER - Press r to restart", 0, 538);
 		//store high score if it's the highest score
-		//play again? - set a start over letter
 	}
 }
 	
