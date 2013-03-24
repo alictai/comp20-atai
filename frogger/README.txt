@@ -3,6 +3,7 @@ Assignment 4: Frogger Part II
 ------------------------------
 Alison Tai
 Due: Friday, March 15th
+Extension to: Monday, March 25th
 
 ------------------------------
 Implementation
@@ -12,9 +13,9 @@ features:
 	1.  Game loads immediately on page load.
 	2.  Frogger can be moved on the canvas using the UP, DOWN, LEFT, and RIGHT
 	    arrow keys on keyboard.
-	3.  Animated vehicles, logs, and turtles.
+TODO3.  Animated vehicles, logs, and turtles.
 TODO4.  Collision detection
-	5.  Basic game scoring where successfully jumping Frogger forward is 10 
+TODO5.  Basic game scoring where successfully jumping Frogger forward is 10 
 		points, successfully jumping Frogger home is 50 points, and 
 		successfully jumping 5 frogs home is 1000 points.
 TODO6.  Level progression where, after jumping 5 frogs home, the level and 
