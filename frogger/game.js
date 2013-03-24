@@ -1,5 +1,5 @@
-//establishing constants
-CANV_H = 565;
+/* Constants */
+{CANV_H = 565;
 CANV_W = 399;
 FROG_START_X = 15
 FROG_START_Y = 440;
@@ -13,6 +13,8 @@ UP_ARROW = 38;
 DOWN_ARROW = 40;
 LEFT_ARROW = 37;
 RIGHT_ARROW = 39;
+PAUSE = 80;
+RESTART = 82;
 LOG1_Y = 110;
 LOG2_Y = 170;
 LOG3_Y = 200;
@@ -22,11 +24,10 @@ CAR1_Y = 290;
 CAR2_Y = 320;
 CAR3_Y = 350;
 CAR4_Y = 380;
-CAR5_Y = 410;
+CAR5_Y = 410;}
 
 /* Game Play */
 function game_init() {
-	//initializing global variables
 	num_lives = 5, extra_lives = 1;
 	num_lvl = 1;
 	time = 120;
@@ -67,17 +68,20 @@ function start_game() {
 	document.addEventListener("keydown", check_input);
 }
 
-function game_loop() {
+function game_loop() {	
 	context.clearRect(0, 0, CANV_W, CANV_H);
 	draw_setting();
 	draw_footer();
-	draw_frogger();
 	draw_logs();
 	draw_turtles();
 	draw_vehicles();
+	draw_frogger();
 	draw_home();
 	
+	check_location();
 	check_collisions();
+	check_score();
+	check_lose();
 }
 
 function lose_life() {
@@ -87,6 +91,16 @@ function lose_life() {
 	frog_x = FROG_START_X;
 	frog_y = FROG_START_Y;
 	num_lives--;
+}
+
+function level_up() {
+	for (var i = 0; i < 5; i++) {
+		frogs_home[i] = false;
+	}
+	num_lvl++;
+	anim_speed = anim_speed - 10;
+	clearInterval(stop_animation);
+	stop_animation = setInterval(game_loop, anim_speed);
 }
 
 /* Check Game State */
@@ -116,7 +130,63 @@ function check_input(event){
 			context.drawImage(sprites, 43, 335, 25, 22, frog_x - 10, frog_y, 25, 22);
 			frog_x = frog_x + 21;
 		}
+	} else if (event.keyCode == PAUSE) {
+		if (paused == false) {
+			paused = true;
+			clearInterval(stop_animation);
+		} else {
+			paused = false;
+			stop_animation = setInterval(game_loop, anim_speed);
+		}
+	} else if (event.keyCode == RESTART) {
+		clearInterval(stop_animation);
+		start_game();
 	}
+}
+
+function check_score() {
+	if (((score+1) / 10000) > extra_lives) {
+		extra_lives++;
+		if (num_lives < 4) {
+			num_lives++;
+		}
+	}
+	if (score > highscore) {
+		highscore = score;
+	}
+}
+
+function check_lose() {
+	if (num_lives <= 0) {
+		clearInterval(stop_animation);		
+		context.fillStyle = "red";
+		context.font = "20pt Helvetica";
+		context.fillText("GAME OVER - Press r to restart", 0, 538);
+		//store high score if it's the highest score
+		//play again? - set a start over letter
+	}
+}
+	
+function check_location() {
+	if (frog_face == "up" || frog_face == "down") {
+		if ((frog_x > CANV_W) || (frog_x + FROG_W < 0)) {
+			lose_life();
+		}
+	} else if (frog_face == "right" || frog_face == "left") {
+		if ((frog_x > CANV_W) || (frog_x + FROG_H < 0)) {
+			lose_life();
+		}
+	}
+}
+
+function num_frogs_home() {
+	var counter = 0;
+	for (var i = 0; i < 5; i++) {
+		if (frogs_home[i] == true) {
+			counter++;
+		}
+	}
+	return counter;
 }
 
 /* Collisions */
@@ -368,4 +438,3 @@ function draw_turtle_group(x, y) {
 	}
 	return x;
 }
-
