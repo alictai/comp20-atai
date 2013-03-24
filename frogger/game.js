@@ -1,25 +1,55 @@
 //establishing constants
 CANV_H = 565;
 CANV_W = 399;
-FROG_START_X = 200;
-FROG_START_Y = 480;
+FROG_START_X = 15
+FROG_START_Y = 440;
+WATER_START = 260;
+LAND_Y = 55;
+LAND_START = 108;
+ROADSIDE_W = 34;
+FROG_W = 23;
+FROG_H = 17;
 UP_ARROW = 38;
 DOWN_ARROW = 40;
 LEFT_ARROW = 37;
 RIGHT_ARROW = 39;
+LOG1_Y = 110;
+LOG2_Y = 170;
+LOG3_Y = 200;
+TURTLES1_Y = 140;
+TURTLES2_Y = 230;
+CAR1_Y = 290;
+CAR2_Y = 320;
+CAR3_Y = 350;
+CAR4_Y = 380;
+CAR5_Y = 410;
 
 function game_init() {
 	//initializing global variables
-	num_lives = 3;
-	game_over = false;
+	num_lives = 5, extra_lives = 1;
 	num_lvl = 1;
 	time = 120;
-	car_speed = 5; 
-	log_speed = 5;
-	score = 0;
-	highscore = 0;
+	score = 0, highscore = 0;
+	game_over = false;	
+	frogs_home = [false, false, false, false, false];
+	anim_speed = 60;
+	car_speed1 = 3, car_speed2 = 4; 
+	log_speed1 = 2, log_speed2 = 3;
+	turtle_speed1 = -2, turtle_speed2 = -3;
+	log_1a = 0, log_1b = 140;
+	log_2 = 30;
+	log_3a = 0, log_3b = 165, log_3c = 330;
+	turtles_1a = 0, turtles_1b = 200;
+	turtles_2a = 30, turtles_2b = 230
+	car_1a = 0, car_1b = 145;
+	car_2a = 0, car_2b = 125, car_2c = 250;
+	car_3a = 0, car_3b = 100, car_3c = 200;
+	car_4a = 0, car_4b = 100;
+	car_5a = 240, car_5b = 340;
+	frog_x = FROG_START_X, frog_y = FROG_START_Y;
+	frog_face = "up";
+	paused = false;
 }
-
 
 function start_game() {	
 	game_init();
@@ -110,9 +140,12 @@ function draw_log(context, sprites, x, y) {
 function game_start() {
 	keypress();
 
+	
+	setInterval(update(), 10);
+
 	while (!game_over) {
+		counter = 0;
 		console.log("in while loop");
-		update();
 		draw();
 		game_over = true;
 	}
@@ -138,6 +171,7 @@ function keypress() {
 }
 
 function update() {
+	
 	//move sprites, update coordinates, resolve collisions
 }
 
