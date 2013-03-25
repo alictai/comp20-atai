@@ -49,6 +49,7 @@ function game_init() {
 	car_4a = 0, car_4b = 100;
 	car_5a = 240, car_5b = 340;
 	frog_x = FROG_START_X, frog_y = FROG_START_Y;
+	fly_x = -100, fly_y = -100;
 	frog_face = "up";
 	paused = false;
 	game_over = false;
@@ -78,6 +79,7 @@ function game_loop() {
 	draw_vehicles();
 	draw_frogger();
 	draw_home();
+	draw_fly();
 	
 	check_location();
 	check_collisions();
@@ -201,6 +203,7 @@ function check_collisions() {
 		}
 	} else if ((frog_y < WATER_START) && (frog_y > LAND_START)) {
 		if (log_collision() != -1) {
+			fly_collision();
 			frog_x += log_collision();
 		} else if (turtle_collision() != -1) {
 			frog_x += turtle_collision();
@@ -224,21 +227,30 @@ function check_collisions() {
 }
 
 function check_collision(x, y, w, h) {
-	var minX_f = frog_x;
-	var minY_f = frog_y;
-	var maxX_f = frog_x + FROG_W;
-	var maxY_f = frog_y + FROG_H;
+	minX_f = frog_x;
+	minY_f = frog_y;
+	maxX_f = frog_x + FROG_W;
+	maxY_f = frog_y + FROG_H;
 
-	var minX = x;
-	var minY = y;
-	var maxX = x + w;
-	var maxY = y + h;
+	minX = x;
+	minY = y;
+	maxX = x + w;
+	maxY = y + h;
 	
-	if ((maxY_f <= maxY) && (maxY_f >= minY)) {
+	if ((maxY_f <= maxY) && (maxY_f >= minY) || 
+		(minY_f >= minY) && (minY_f <= maxY) ) {
 		if ((minX_f <= maxX) && (minX_f >= minX)) {
 			return true;
 		}
 		if ((maxX_f <= maxX) && (maxX_f >= minX)) {
+			return true;
+		}
+	} else if ((maxY <= maxY_f) && (maxY >= minY_f) ||
+			   (minY >= minY_f) && (minY <= maxY_f) ) {
+		if ((minX <= maxX_f) && (minX >= minX_f)) {
+			return true;
+		}
+		if ((maxX <= maxX_f) && (maxX >= minX_f)) {
 			return true;
 		}
 	}
@@ -309,6 +321,14 @@ function turtle_collision() {
 		return turtle_speed2;
 	} else {
 		return -1;
+	}
+}
+
+function fly_collision() {
+	if (check_collision(fly_x, fly_y, 16, 16)) {
+		score += 200;
+		fly_x = -100;
+		fly_y = -100;
 	}
 }
 
@@ -441,4 +461,26 @@ function draw_turtle_group(x, y) {
 		x = CANV_W;
 	}
 	return x;
+}
+
+function draw_fly() {
+	if (fly_x > 0 && fly_y > 0) {
+		fly_x += fly_speed;
+		fly_x = draw_sprite(140, 236, 16, 16, fly_x, fly_y);
+	} else {
+		randomnumber = Math.floor(Math.random() * 8001);
+		if (randomnumber > 200 && randomnumber < 250) {
+			fly_x = log_1b;
+			fly_y = LOG1_Y;
+			fly_speed = log_speed1;
+		} else if (randomnumber > 250 && randomnumber < 300) {
+			fly_x = log_2;
+			fly_y = LOG2_Y;
+			fly_speed = log_speed2;
+		} else if (randomnumber > 350 && randomnumber < 400) {
+			fly_x = log_3a;
+			fly_y = LOG3_Y;
+			fly_speed = -log_speed1;
+		}
+	}
 }

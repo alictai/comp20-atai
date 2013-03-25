@@ -22,7 +22,8 @@ features:
 		speed of vehicles, logs, and turtles is increased to make the level 
 		more difficult.
 	7.  Frogger animates to dead_frog.png when dead.
-TODO8.  Game audio OR timer???
+	8.  A fly shows up at random times. If eaten by frogger, the player earns 200
+		extra points.
 	9.  The letter P pauses and un-pauses the game.
 	10. The letter S restarts the game.
 
@@ -58,6 +59,7 @@ I have done so through the following methods:
 		car_collision - checks collision of frogger with vehicles
 		log_collision - checks collision of frogger with logs
 		turtle_collision - checks collision of frogger with turtles
+		fly_collision - checks collision of frogger with fly
 
 	DRAWING METHODS
 		start_graphics - draws initial screen	
@@ -72,6 +74,7 @@ I have done so through the following methods:
 		draw_logs - draws the log sprites
 		draw_turtles - draws turtle sprites
 		draw_turtle_group - draws a single grouping of turtles
+		draw_fly - draws the fly at random times on random logs
 	
 No JavaScript errors exist in the console.
 
@@ -80,6 +83,8 @@ Acknowledgements
 ------------------------------
 HTML5 Canvas Rectangle Info - http://www.html5canvastutorials.com/tutorials/html5-canvas-rectangles/
 Drawing Text - https://developer.mozilla.org/en-US/docs/Drawing_text_using_a_canvas
+Generating Random Number - http://www.javascriptkit.com/javatutors/randomnum.shtml
+Collision Detection - http://www.playmycode.com/blog/2011/08/javascript-per-pixel-html5-canvas-image-collision-detection/
 
 ------------------------------
 Hours Spent: 30
