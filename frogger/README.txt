@@ -81,10 +81,15 @@ No JavaScript errors exist in the console.
 ------------------------------
 Acknowledgements
 ------------------------------
-HTML5 Canvas Rectangle Info - http://www.html5canvastutorials.com/tutorials/html5-canvas-rectangles/
-Drawing Text - https://developer.mozilla.org/en-US/docs/Drawing_text_using_a_canvas
-Generating Random Number - http://www.javascriptkit.com/javatutors/randomnum.shtml
-Collision Detection - http://www.playmycode.com/blog/2011/08/javascript-per-pixel-html5-canvas-image-collision-detection/
+I used the following links for information on the listed items:
+	HTML5 Canvas Rectangle Info - http://www.html5canvastutorials.com/tutorials
+		/html5-canvas-rectangles/
+	Drawing Text - https://developer.mozilla.org/en-US/docs/Drawing_text_using_
+		a_canvas
+	Generating Random Number - http://www.javascriptkit.com/javatutors/randomnu
+		m.shtml
+	Collision Detection - http://www.playmycode.com/blog/2011/08/javascript-per
+		-pixel-html5-canvas-image-collision-detection/
 
 ------------------------------
 Hours Spent: 30

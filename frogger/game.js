@@ -1,4 +1,3 @@
-/* Constants */
 {CANV_H = 565;
 CANV_W = 399;
 FROG_START_X = 15
@@ -26,7 +25,6 @@ CAR3_Y = 350;
 CAR4_Y = 380;
 CAR5_Y = 410;}
 
-/* Game Play */
 function game_init() {
 	num_lives = 5, extra_lives = 1;
 	num_lvl = 1;
@@ -106,7 +104,6 @@ function level_up() {
 	stop_animation = setInterval(game_loop, anim_speed);
 }
 
-/* Check Game State */
 function check_input(event){
 	if (!game_over) {
 		if (event.keyCode == UP_ARROW) {
@@ -169,7 +166,7 @@ function check_lose() {
 		context.fillStyle = "red";
 		context.font = "20pt Helvetica";
 		context.fillText("GAME OVER - Press r to restart", 0, 538);
-		//store high score if it's the highest score
+		//For future: store high score in local storage
 	}
 }
 	
@@ -195,7 +192,6 @@ function num_frogs_home() {
 	return counter;
 }
 
-/* Collisions */
 function check_collisions() {
 	if (frog_y > WATER_START) {
 		if (car_collision() == true) {
@@ -332,7 +328,6 @@ function fly_collision() {
 	}
 }
 
-/* Drawing */
 function start_graphics() {
 	draw_setting();
 	draw_footer();
