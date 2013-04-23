@@ -165,6 +165,14 @@ function check_lose() {
 		game_over = true;
 		context.fillStyle = "red";
 		context.font = "20pt Helvetica";
+		/*
+		<form action="http://arcane-fortress-5596.herokuapp.com/submit.json" method="post">
+			<input type="text" name="game_title" value="Title of Game"/>
+			<input type="text" name="username" value="Username"/>
+			<input type="text" name="score" value="Score"/>
+			<input type="submit" value="Submit Highscore"/>
+		</form>
+		*/
 		context.fillText("GAME OVER - Press r to restart", 0, 538);
 		//For future: store high score in local storage
 	}
