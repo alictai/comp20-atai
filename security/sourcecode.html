@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="report.css" />
+<title>ScoreCenter Security Source Code</title>
+</head>
+
+<body>
+<pre>
+// Express initialization
+var express = require('express');
+var app = express(express.logger());
+app.use(express.bodyParser());
+app.set('title', 'nodeapp');
+
+
+// Mongo initialization
+var mongoUri = process.env.MONGOLAB_URI || 
+  process.env.MONGOHQ_URL || 
+  'mongodb://localhost/scorecenter';
+var mongo = require('mongodb');
+var db = mongo.Db.connect(mongoUri, function (error, databaseConnection) {
+	db = databaseConnection;
+});
+
+
+//Cross Origin Resource Sharing
+app.all('/', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+ });
+
+//root page
+app.get('/', function (req, res) {
+  db.collection('scores', function (err, collection) {
+
+    collection.find().sort({game_title:1}, function (err, cursor) {
+      var output = '';
+      cursor.each(function (err, scores) {
+        if (scores) {
+          output = output + '&lt;tr&gt;&lt;td&gt;' + scores.game_title + '&lt;/td&gt;&lt;td&gt;' + scores.username + '&lt;/td&gt;&lt;td&gt;' + scores.score + '&lt;/td&gt;&lt;td&gt;' + scores.date + '&lt;/td&gt;&lt;/tr&gt;';
+        } 
+        else {
+          db.close();
+          res.set('Content-Type', 'text/html');
+          res.send('&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;title&gt;ScoreCenter&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;h1&gt;ScoreCenter&lt;/h1&gt;&lt;form name="topscores" action="highscores.json" method="get"&gt;Game: &lt;input type="text" name="game_title"&gt;&lt;input type="submit" value="Submit"&gt;&nbsp&nbsp&nbsp&nbsp&lt;a href="/usersearch"&gt;User Search&lt;/a&gt;&lt;/form&gt;&lt;p&gt;&lt;table width=400px border=8px&gt;&lt;tr&gt;&lt;td&gt;Game&lt;/td&gt;&lt;td&gt;Username&lt;/td&gt;&lt;td&gt;Score&lt;/td&gt;&lt;td&gt;Date&lt;/td&gt;&lt;/tr&gt;' + output + '&lt;/table&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;');
+        }
+      });
+    });
+  });
+});
+
+
+//method for submitting new scores
+app.post('/submit.json', function (req, res) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  var username = req.body.username;
+  var score = parseInt(req.body.score);
+  var game_title = req.body.game_title;
+  var data = {"username":username, "score":score, "game_title":game_title, "date": Date()};
+  db.collection('scores', function (err, collection) {
+    collection.insert(data);
+    res.send([{'game_title': game_title, 'score': score, 'username': username, 'date': Date() }]);
+  });
+});
+
+
+
+//sort scores (descending order=-1)
+app.get('/highscores.json', function (req, res) {
+  var game = req.query;
+  var output = '';
+  db.collection('scores', function (error, collection) {
+    collection.find(game).sort({score:-1}).limit(10, function (err, cursor) {
+      cursor.each(function (er, scores) {
+        if (scores) {
+          output = output + JSON.stringify(scores);
+        }
+        else {
+          db.close();
+          res.set('Content-Type', 'text/json');
+          res.send(output);
+        }
+      });
+    });
+  });
+});
+
+//Page layout and call for userscores
+app.get('/usersearch', function (req, res) {
+  res.set('Content-Type', 'text/html');
+  res.send('&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;title&gt;User Search&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;h1&gt;User Scores&lt;/h1&gt;&lt;form name="search" action="userscores" method="post"&gt;Username: &lt;input type="text" name="username"&gt;&lt;input type="submit" value="Submit"&gt;&lt;/form&gt;&lt;p&gt;&lt;a href="/"&gt;ScoreCenter&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;');
+});
+
+
+//called by /usersearch
+app.post('/userscores', function (req, res) {
+  var user = req.body.username;
+  var output = '';
+  db.collection('scores', function (error, collection) {
+    collection.find({username:user}).sort({score:-1}, function (err, cursor) {
+      cursor.each(function (err, scores) {
+        if (scores) {
+          output = output + '&lt;tr&gt;&lt;td&gt;' + scores.game_title + '&lt;/td&gt;&lt;td&gt;' + scores.score + '&lt;/td&gt;&lt;td&gt;' + scores.date + '&lt;/td&gt;&lt;/tr&gt;';
+        }
+        else {
+          db.close();
+          res.set('Content-Type', 'text/html');
+          res.send('&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;h1&gt;Scores for ' + user + '&lt;/h1&gt;&lt;table width=325px border=8px&gt;&lt;tr&gt;&lt;td&gt;Game&lt;/td&gt;&lt;td&gt;Score&lt;/td&gt;&lt;td&gt;Date&lt;/td&gt;&lt;/tr&gt;' + output + '&lt;/table&gt;&lt;p&gt;&lt;a href="/"&gt;ScoreCenter&lt;/a&gt;&lt;/p&gt;&lt;/html&gt;');
+        }
+      });
+    });
+  });
+});
+
+
+
+
+var port = process.env.PORT || 3000;
+app.listen(port,function(){});
+
+</pre>
+</body>
+
+</html>
