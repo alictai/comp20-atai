@@ -9,6 +9,7 @@ P
 	font-size: 14px;
 	text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 	padding-left: 30px;
+	margin-top: 0px;
 }
 
 h1
@@ -30,6 +31,8 @@ h4
 	font-weight: 100;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
     padding-left: 10px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
 }
 
 ol
@@ -53,10 +56,37 @@ ol
 	padding-right: 30px;
 }
 
+.section
+{
+	background-color: #E0E0E0;
+	border-radius: 15px;
+	padding: 10px;
+}
+
 .code
 {
 	text-align: left;
 	font-family: "Courier";
 	font-size: 14px;
 	text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.button
+{
+	padding: 10px;
+	border-radius: 15px;
+}
+
+.issue_title
+{
+	font-size: 20;
+	text-decoration: bold;
+}
+
+#header
+{
+	background-color: #1abc9c;
+	color: #FFFFFF;
+	padding: 10px;
+	border-radius: 15px;
 }

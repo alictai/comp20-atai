@@ -2,67 +2,99 @@
 <html>
 
 <head>
-<link rel="stylesheet" type="text/css" href="report.css" />
-<title>ScoreCenter Security Analysis</title>
+	<link rel="stylesheet" type="text/css" href="Flat-UI-Master/css/flat-ui.css" />
+	<link rel="stylesheet" type="text/css" href="report.css" />
+	<title>ScoreCenter Security Analysis</title>
 </head>
 
 <body>
-<h1>ScoreCenter Security Analysis</h1>
-<p class="title">
-	of Solomon Kreva's Score Center</br>
-	by Alison Tai
-</p>
+<div id="header">
+	<h1>ScoreCenter Security Analysis</h1>
+	<p class="title">
+		of Solomon Kreva's Score Center</br>
+		by Alison Tai
+	</p>
+</div>
+</br>
+<a href="#introduction" class="btn btn-large btn-block button">Introduction</a>
+<a href="#methodology" class="btn btn-large btn-block btn-warning button">Methodology</a>
+<a href="#abstract" class="btn btn-large btn-block btn-success button">Abstract</a>
+<a href="#issues" class="btn btn-large btn-block btn-info button">Issues Found</a>
+<a href="#conclusion" class="btn btn-large btn-block btn-danger button">Conclusion</a>
+
+</br></br>
 
 <!--INTRODUCTION-->
-<h3>Introduction</h3>
-<p class="content">
-	A ScoreCenter application was created to hold and sort high scores for any given game. This application takes in high scores through a POST API. The high score list for any given game through a GET API and all high scores submitted can be seen by accessing the home web page of the application. Users can also be searched for on the application's usersearch page.
-</p>
-<p class="content">
-	This flexible application has made it much easier for game applications to manage and maintain their high score charts. In order for this to be an effective high score application, though, it must always be accurate and easy to use. Before using this application, the owner wants to make sure that there is no way for high scores to be tampered with. This consultation will evaluate the security of ScoreCenter and propose fixes to found security leaks.
-</p>
+<a name="introduction"></a>
+	<div class="section">
+		<h3>Introduction</h3>
+		<p class="content">
+			A ScoreCenter application was created to hold and sort high scores for any given game. This application takes in high scores through a POST API. The high score list for any given game through a GET API and all high scores submitted can be seen by accessing the home web page of the application. Users can also be searched for on the application's usersearch page.
+		</p>
+		<p class="content">
+			This flexible application has made it much easier for game applications to manage and maintain their high score charts. In order for this to be an effective high score application, though, it must always be accurate and easy to use. Before using this application, the owner wants to make sure that there is no way for high scores to be tampered with. This consultation will evaluate the security of ScoreCenter and propose fixes to found security leaks.
+		</p>
+	</div>
+</br>
 
 <!--METHODOLOGY-->
-<h3>Methodology</h3>
-<p class="content">
-	The ScoreCenter website can be found at <a href="http://hidden-beyond-8586.herokuapp.com/">http://hidden-beyond-8586.herokuapp.com/</a>. The source code for the application can be found <a href="sourcecode.html">here</a>. The owner of the application is Solomon Kreva.
-</p>
+<a name="methodology"></a>
+<div class="section">
+	<h3>Methodology</h3>
+	<p class="content">
+		The ScoreCenter website can be found at <a href="http://hidden-beyond-8586.herokuapp.com/">http://hidden-beyond-8586.herokuapp.com/</a>. The source code for the application can be found <a href="sourcecode.html">here</a>. The owner of the application is Solomon Kreva.
+	</p>
 
-<p>The process used to assess the application was as follows:</p>
+	<p>The process used to assess the application was as follows:</p>
 
-<ol>
-<li>
-	Access each application as a user would. Look for common web application vulnerabilities such as opportunity for remote code execution, database injection, unfiltered input, and cross-site scripting.
-</li>
-<li>
-	Examine the source code for more vulnerabilities. Return to using application to test weaknesses discovered in the source code.
-</li>
-<li>
-	Use the Burp Suite Free Edition set of tools to find further weaknesses in the code.
-</li>
-</ol>
+	<ol>
+	<li>
+		Access each application as a user would. Look for common web application vulnerabilities such as opportunity for remote code execution, database injection, unfiltered input, and cross-site scripting.
+	</li>
+	<li>
+		Examine the source code for more vulnerabilities. Return to using application to test weaknesses discovered in the source code.
+	</li>
+	<li>
+		Use the Burp Suite Free Edition set of tools to find further weaknesses in the code.
+	</li>
+	</ol>
+</div>
+</br>
 
 <!--ABSTRACT OF FINDINGS-->
-<h3>Abstract of Findings</h3>
-<p class="content">
-	Several security flaws were found in this implementation of Score Center. These security flaws stemmed from the lack of input validation and direct access to the database.
-</p>
+<a name="abstract"></a>
+<div class="section">
+	<h3>Abstract of Findings</h3>
+	<p class="content">
+		Several security flaws were found in this implementation of Score Center. These security flaws stemmed from the lack of input validation and direct access to the database.
+	</p>
+</div>
+</br>
 
 <!--ISSUES FOUND-->
-<h3>Issues Found</h3>
+<a name="issues"></a>
+<div class="section">
+	<h3>Issues Found</h3>
 
-<h4>1. No Input Validation or Sanitization</h4>
-<p class="content">
-	Location: POST API</br>
-	Severity: High</br>
-	Description: Submitted scores are not sanitized or validated. As a result, code can be injected directly to the database. For example, images (contained within an HTML <span class="code">&lt;img src="src"&gt;</span> tags can be inserted - resulting in an image being displayed in place of any of the fields.</br>
-	Recommendation: </br>
-</p>
+	<h4>1. No Input Validation or Sanitization</h4>
+	<p class="content">
+		Location: POST API</br>
+		Severity: High</br>
+		Description: Submitted scores are not sanitized or validated. As a result, code can be injected directly to the database. For example, images (contained within an HTML <span class="code">&lt;img src="src"&gt;</span> tags can be inserted - resulting in an image being displayed in place of any of the fields.</br>
+		Recommendation: </br>
+	</p>
 
+	
+</div>
+</br>
 
 <!--CONCLUSION-->
-<h3>Conclusion</h3>
-<p class="content">In its current state, the ScoreCenter application contains several security flaws. The interface can easily be injected with information that would make the </p>
+<a name="conclusion"></a>
+<div class="section">
+	<h3>Conclusion</h3>
+	<p class="content">In its current state, the ScoreCenter application contains several security flaws. The interface can easily be injected with information that would make the </p>
+</div>
+</br>
 
 </body>
 
