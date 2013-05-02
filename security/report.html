@@ -46,16 +46,12 @@
 	</p>
 
 	<p>The process used to assess the application was as follows:</p>
-
 	<ol>
 	<li>
 		Access each application as a user would. Look for common web application vulnerabilities such as opportunity for remote code execution, database injection, unfiltered input, and cross-site scripting.
 	</li>
 	<li>
 		Examine the source code for more vulnerabilities. Return to using application to test weaknesses discovered in the source code.
-	</li>
-	<li>
-		Use the Burp Suite Free Edition set of tools to find further weaknesses in the code.
 	</li>
 	</ol>
 </div>
@@ -78,13 +74,57 @@
 
 	<h4>1. No Input Validation or Sanitization</h4>
 	<p class="content">
-		Location: POST API</br>
-		Severity: High</br>
-		Description: Submitted scores are not sanitized or validated. As a result, code can be injected directly to the database. For example, images (contained within an HTML <span class="code">&lt;img src="src"&gt;</span> tags can be inserted - resulting in an image being displayed in place of any of the fields.</br>
-		Recommendation: </br>
+		<b>Location:</b> POST API, Usersearch</br>
+		<b>Severity:</b> <span class="danger">HIGH</span> - Could render pages of the application useless.</br>
+		<b>Description:</b> Submitted scores are not sanitized or validated. As a result, code can be injected directly to the database. For example, images (contained within an HTML <span class="code">&lt;img src="src"&gt;</span> tags can be inserted - resulting in an image being displayed in place of any of the fields. This vulnerability also allows for cross-site scripting. Any scripts that are posted which could result in infinite loops of alert messages or anything from the miriad of destruction that a script can cause.</br>
+		<img src="images/inputvalidation.png" alt="Input Validation Attack" class="issue_img"/>
+		<b>Recommendation:</b> There are several ways to sanitize input. The simplest way would be to process all entries as text - thus disallowing any scripting or HTML tags to be posted to the page as anything but the string versions of their contents. Messages could also be sanitzed by stripping them of tags, replacing their special characters, or rejecting any posts with any special characters in them.</br>
 	</p>
 
-	
+	<h4>2. Access Control Allow Origin Wildcard Usage</h4>
+	<p class="content">
+		<b>Location:</b> entire application</br>
+		<b>Severity:</b> <span class="caution">MEDIUM</span> - You cannot trust all clients, but also fixes to the higher severity items could render this issue as less important. </br>
+		<b>Description:</b> Through examination of the source code, it can be seen that the Access-Control-Allow-Origin header is using the wildcard ('*'). This is seen here: 
+	</p>
+	<p class="code">
+		app.all('/', function(req, res, next) {</br>
+	  	&nbsp;&nbsp;&nbsp;&nbsp;res.header("Access-Control-Allow-Origin", <span class="danger">"*"</span>);</br>
+	  	&nbsp;&nbsp;&nbsp;&nbsp;res.header("Access-Control-Allow-Headers", "X-Requested-With");</br>
+	  	&nbsp;&nbsp;&nbsp;&nbsp;next();</br>
+	 	});</br>
+	</p>
+	<p class="content">
+		This is a bad programming practice because if the wildcard ('*') is used, then code from any website can access the content. As a result, any website has access to inject whatever it so pleases into the ScoreCenter.</br>
+		<b>Recommendation:</b> In order to alleviate this issue, a set list of applications/websites that are allowed access to the ScoreCenter application should be compiled. A process for becoming a validated user of the application will have to be put in place. Users can then be issued API keys that allow for validation.</br>
+	</p>
+
+	<h4>3. No Field Size Limit</h4>
+	<p class="content">
+		<b>Location:</b> POST API</br>
+		<b>Severity:</b> <span class="caution">MEDIUM</span> - There shouldn't be games with scores that approach infinity, but this may be a problem.</br>
+		<b>Description:</b> There is no limit on the amount of text allowed within a field sent to the POST API. Therefore, users can insert as much data as they want into a field. This could overload the database, cause data to generally be incorrect, or bring down the entire application.</br>
+		<img src="images/infinity.png" alt="Overloaded Field" class="issue_img"/>
+		<b>Recommendation:</b> Only allow for a certain number of characters in the input to the POST API. Any input that contains more than the allotted amount will be rejected - this can be shown in an error message in the returned JSON.</br>
+	</p>
+
+	<h4>4. Direct Access to Data</h4>
+	<p class="content">
+		<b>Location:</b> Home Page</br>
+		<b>Severity:</b> <span class="okay">LOW</span> - This may be considered a feature of the application, but could also be a flaw.</br>
+		<b>Description:</b> Since there is data on this website that is easily viewed or extracted, then anyone can take the data compiled by the application. While this may be desired for some uses, it can also be dangerous. If the application is ever expanded to incorporate real names or any other pieces of private information, then this would become a problem. </br>
+		<b>Recommendation:</b> This can be very easily solved by not displaying all of the scores or information in the application on a given page. </br>
+	</p>
+
+	<h4>5. Allowing Repeats</h4>
+	<p class="content">
+		<b>Location:</b> POST API</br>
+		<b>Severity:</b> <span class="okay">LOW</span> - It's unlikely that users will be able to get the same exact score more than once. If the previous issues are resolved, then this shouldn't be a particularly malicious issue.</br>
+		<b>Description:</b> If a user gets the same score more than once for any game, it is still inputted into the database. While this isn't a huge security risk, it can inundate the leaderboards with poor data. If, for instance, someone gets the same score ten times then their name will be on the top ten high score list for every single post. There is no opportunity for anyone else. If the previous issues have not been corrected, it is even likely that multiple submissions of the same score is a malicious attempt at rendering the leaderboard useless.</br>
+		<img src="images/repeat.png" alt="Allowing Repeats" class="issue_img"/>
+		<b>Recommendation:</b> Search the database first to see if there is an identical entry. If there is, reject or ignore the post..</br>
+	</p>
+
 </div>
 </br>
 
@@ -92,7 +132,10 @@
 <a name="conclusion"></a>
 <div class="section">
 	<h3>Conclusion</h3>
-	<p class="content">In its current state, the ScoreCenter application contains several security flaws. The interface can easily be injected with information that would make the </p>
+	<p class="content">In its current state, the ScoreCenter application contains several security flaws. The interface can easily be injected with information that would make render the application useless and is at the mercy of anyone who wants to use it. Many of the security vulnerabilities are blatant and urgent.
+	</br></br>
+	In the interest of the future, the given issues should be fixed before putting the code into production if possible. Any issue marked with a severity of "HIGH" should be fixed as soon as possible. For any amount of money, you can probably find a poor college student who would love to work with this application. We suggest reaching out to students who have taken Ming Chow's Web Programming and Web Security classes at Tufts University.
+	</p>
 </div>
 </br>
 
